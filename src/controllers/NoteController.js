@@ -1,4 +1,4 @@
-const knex = require('../conexao');
+const knex = require('../config/db');
 const axios = require('axios');
 
 const cadastrarNota = async (req, res) => {
