@@ -8,6 +8,11 @@ const cadastrarNota = async (req, res) => {
         return res.status(400).json("Todos os campos são obrigatórios.");
     }
 
+    const categoria = await knex('categorias').where('id', categoria_id).first();
+    if (!categoria) {
+      return res.status(400).json("Categoria não existe.");
+    }
+  
     try {
         await knex('notas').insert({ titulo, conteudo, categoria_id, usuario_id, localizacao });
         return res.status(201).json("Nota cadastrada com sucesso");
