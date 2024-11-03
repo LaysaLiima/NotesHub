@@ -41,8 +41,24 @@ const obterNota = async (req, res) => {
     }
 };
 
+const atualizarNota = async (req, res) => {
+    const { id } = req.params;
+    const { titulo, conteudo, categoria_id, usuario_id } = req.body;
+
+    try {
+        const resultado = await knex('notas').update({ titulo, conteudo, categoria_id, usuario_id }).where({ id });
+        if (!resultado) {
+            return res.status(404).json("Nota não encontrada");
+        }
+        return res.status(200).json("Nota atualizada com sucesso");
+    } catch (error) {
+        return res.status(500).json("Erro interno do servidor");
+    }
+};
+
 module.exports = {
     cadastrarNota,
     listarNotas,
-    obterNota
+    obterNota,
+    atualizarNota
 }
