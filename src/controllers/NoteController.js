@@ -16,3 +16,7 @@ const cadastrarNota = async (req, res) => {
         return res.status(500).json("Erro interno do servidor");
     }
 };
+
+module.exports = {
+    cadastrarNota
+}
