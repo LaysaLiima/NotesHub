@@ -56,9 +56,24 @@ const atualizarNota = async (req, res) => {
     }
 };
 
+const deletarNota = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const resultado = await knex('notas').delete().where({ id });
+        if (!resultado) {
+            return res.status(404).json("Nota não encontrada");
+        }
+        return res.status(200).json("Nota deletada com sucesso");
+    } catch (error) {
+        return res.status(500).json("Erro interno do servidor");
+    }
+};
+
 module.exports = {
     cadastrarNota,
     listarNotas,
     obterNota,
-    atualizarNota
+    atualizarNota,
+    deletarNota
 }
