@@ -27,7 +27,22 @@ const listarNotas = async (req, res) => {
     }
 };
 
+const obterNota = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const nota = await knex('notas').where({ id }).first();
+        if (!nota) {
+            return res.status(404).json("Nota não encontrada");
+        }
+        return res.status(200).json(nota);
+    } catch (error) {
+        return res.status(500).json("Erro interno do servidor");
+    }
+};
+
 module.exports = {
     cadastrarNota,
-    listarNotas
+    listarNotas,
+    obterNota
 }
