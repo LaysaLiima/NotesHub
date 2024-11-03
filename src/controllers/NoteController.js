@@ -17,6 +17,17 @@ const cadastrarNota = async (req, res) => {
     }
 };
 
+const listarNotas = async (req, res) => {
+    try {
+        const notas = await knex('notas');
+        return res.status(200).json(notas);
+    } catch (error) {
+        console.error('Erro ao listar notas:', error);
+        return res.status(500).json("Erro interno do servidor");
+    }
+};
+
 module.exports = {
-    cadastrarNota
+    cadastrarNota,
+    listarNotas
 }
