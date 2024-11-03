@@ -14,13 +14,20 @@ const cadastrarNota = async (req, res) => {
     }
   
     try {
+        // Fazer a requisição à rota de geolocalização
+        const response = await axios.get('http://localhost:3000/geolocalizacao'); 
+    
+        const { country, region, city } = response.data;
+        const localizacao = `${city || 'Não disponível'} - ${region || 'Não disponível'} - ${country || 'Não disponível'}`;
+    
+        // Inserir a nova nota no banco de dados com a localização
         await knex('notas').insert({ titulo, conteudo, categoria_id, usuario_id, localizacao });
         return res.status(201).json("Nota cadastrada com sucesso");
-    } catch (error) {
+      } catch (error) {
         console.error('Erro ao cadastrar nota:', error);
         return res.status(500).json("Erro interno do servidor");
-    }
-};
+      }
+    };
 
 const listarNotas = async (req, res) => {
     try {
