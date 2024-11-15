@@ -28,6 +28,13 @@ const obterUsuario = async (req, res) => {
 // Cadastrar um novo usuário
 const cadastrarUsuario = async (req, res) => {
     const { nome, email, senha } = req.body;
+
+    if (!nome || !email || !senha) {
+
+        return res.status(400).json("Todos os campos são obrigatórios");
+        
+        }
+
     try {
         await knex('usuarios').insert({ nome, email, senha });
         return res.status(201).json("Usuário cadastrado com sucesso");
