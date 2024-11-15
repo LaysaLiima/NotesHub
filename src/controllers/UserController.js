@@ -30,9 +30,7 @@ const cadastrarUsuario = async (req, res) => {
     const { nome, email, senha } = req.body;
 
     if (!nome || !email || !senha) {
-
         return res.status(400).json("Todos os campos são obrigatórios");
-        
         }
 
     try {
