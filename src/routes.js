@@ -6,6 +6,7 @@ const UserController = require('./controllers/UserController');
 const NoteController = require('./controllers/NoteController');
 const CategoryController = require('./controllers/CategoryController');
 const geolocalizacoes = require('./controllers/Geolocalizacoes');
+const AuthController = require('./controllers/AuthController')
 
 // Rotas de Usuários
 router.get('/usuarios', UserController.listarUsuarios);
@@ -28,5 +29,8 @@ router.get('/categorias/:id', CategoryController.obterCategoria);
 router.post('/categorias', CategoryController.cadastrarCategoria);
 router.put('/categorias/:id', CategoryController.atualizarCategoria);
 router.delete('/categorias/:id', CategoryController.deletarCategoria);
+
+// Rota de Login
+router.post('/login', AuthController.loginUsuario);
 
 module.exports = router;
