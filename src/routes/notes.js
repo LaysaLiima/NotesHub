@@ -9,7 +9,7 @@ router.get('/notes', NoteController.listarNotas);
 router.get('/notes/:id', NoteController.obterNota);  
 router.put('/notes/:id', NoteController.atualizarNota)
 router.delete('/notes/:id', NoteController.deletarNota)
-rotas.get('/geolocalizacao', geolocalizacoes.obterLocalizacaoPorIp);
+router.get('/geolocalizacao', geolocalizacoes.obterLocalizacaoPorIp);
 
 
 module.exports = router;
