@@ -1,4 +1,5 @@
 const knex = require('../config/db');
+const bcrypt = require('bcrypt')
 
 // Listar todos os usuários
 const listarUsuarios = async (req, res) => {
@@ -38,7 +39,8 @@ const cadastrarUsuario = async (req, res) => {
         if (emailExistente) {
             return res.status(409).json("E-mail já está em uso");
         }
-        await knex('usuarios').insert({ nome, email, senha });
+        const senhaCriptografada = await bcrypt.hash(senha, 10);
+        await knex('usuarios').insert({ nome, email, senha: senhaCriptografada });
         return res.status(201).json("Usuário cadastrado com sucesso");
     } catch (error) {
         return res.status(500).json("Erro interno do servidor");
