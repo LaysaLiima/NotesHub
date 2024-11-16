@@ -1,5 +1,7 @@
+require('dotenv').config();
 const knex = require('../config/db');
 const axios = require('axios');
+const jwt = require('jsonwebtoken')
 
 const cadastrarNota = async (req, res) => {
     const { titulo, conteudo, categoria_id, usuario_id, localizacao } = req.body;
@@ -30,11 +32,17 @@ const cadastrarNota = async (req, res) => {
     };
 
 const listarNotas = async (req, res) => {
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if (!token) {
+        return res.status(401).json("Token não fornecido.");
+    }
+    
     try {
+        const tokenUsuario = jwt.verify(token, process.env.SECRET_KEY);
         const notas = await knex('notas');
         return res.status(200).json(notas);
     } catch (error) {
-        console.error('Erro ao listar notas:', error);
         return res.status(500).json("Erro interno do servidor");
     }
 };
