@@ -7,6 +7,9 @@ const NoteController = require('./controllers/NoteController');
 const CategoryController = require('./controllers/CategoryController');
 const geolocalizacoes = require('./controllers/Geolocalizacoes');
 const AuthController = require('./controllers/AuthController')
+const verifcarUsuarioLogado = require('./Intermediarios/Autenticacao')
+
+router.use(verifcarUsuarioLogado)
 
 // Rotas de Usuários
 router.get('/usuarios', UserController.listarUsuarios);
